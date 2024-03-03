@@ -17,7 +17,12 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='font_awesome', filename='css/font-awesome.min.css') }}">
         <!-- Bepasty styles -->
+        {% if config.DARKMODE %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='app/css/style_dark.css' ) }}" type="text/css">
+        
+        {% else %}
         <link rel="stylesheet" href="{{ url_for('static', filename='app/css/style.css' ) }}" type="text/css">
+        {% endif %}
         {% block extra_link %}{% endblock %}
     </head>
 
@@ -25,7 +30,7 @@
         <div id="wrapper">
             <!-- Begin header -->
             <div id="header" class="pb-3">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+                <nav class="navbar navbar-expand-lg {% if config.DARKMODE %} bg-dark navbar-dark {% else %} bg-light {% endif %}" role="navigation">
                     <div class="container-fluid">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <a class="navbar-brand" href="{{ url_for('bepasty.index') }}">

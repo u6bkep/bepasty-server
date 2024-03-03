@@ -71,20 +71,20 @@
 
 
 {% block content %}
-    <div class="card">
+    <div class="card {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}">
         <div class="card-header">
             <form>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label text-md-right text-nowrap" for="text">Content:</label>
                     <div class="col-md-9">
-                        <input class="form-control" id="text" placeholder="https://example.org/" size="80"
+                        <input class="form-control {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}" id="text" placeholder="https://example.org/" size="80"
                                value="{{ text }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label text-md-right text-nowrap" for="errorCorrectionLevel">Error correction:</label>
                     <div class="col-md-2">
-                        <select class="form-control" id="errorCorrectionLevel" name="e">
+                        <select class="form-control {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}" id="errorCorrectionLevel" name="e">
                             <option value="L">7% (L)</option>
                             <option value="M">15% (M)</option>
                             <option value="Q">25% (Q)</option>

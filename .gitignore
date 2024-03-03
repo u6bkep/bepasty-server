@@ -52,3 +52,9 @@ coverage.xml
 docs/build/
 
 .idea
+
+#python virtualenv
+.venv*/
+
+#developement data directory
+srv/

@@ -5,10 +5,10 @@
 {% macro maximum_lifetime() -%}
 <div class="row">
     <div class="col-lg-3 form-group">
-        <input class="form-control" name="maxlife-value" type="number" min="1" value="1" /><br>
+        <input class="form-control {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}" name="maxlife-value" type="number" min="1" value="1" /><br>
     </div>
     <div class="col-lg-9 form-group">
-        <select class="form-control" name="maxlife-unit" size="1">
+        <select class="form-control {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}" name="maxlife-unit" size="1">
             <option value="months">Months</option>
             <option value="weeks">Weeks</option>
             <option value="days">Days</option>
@@ -27,7 +27,7 @@
     <div class="col-md-8">
         <form action="{{ url_for('bepasty.upload') }}" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <textarea class="form-control" id="formupload" name="text" placeholder="Paste text here..." autofocus></textarea>
+                <textarea class="form-control {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}" id="formupload" name="text" placeholder="Paste text here..." autofocus></textarea>
             </div>
             <div class="row">
                 <div class="col-3 form-group">

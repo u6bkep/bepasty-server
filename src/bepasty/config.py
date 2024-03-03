@@ -134,3 +134,5 @@ class Config:
     #: not-logged-in users get these permissions -
     #: usually they are either no permissions ('') or read-only ('read').
     DEFAULT_PERMISSIONS = ''
+
+    DARKMODE = False

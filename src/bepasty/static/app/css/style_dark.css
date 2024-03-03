@@ -1,0 +1,172 @@
+/* base styles
+-------------------------------------------------- */
+
+/* Define colors for dark mode */
+:root {
+    --background-color: #343a40 !important; 
+    --text-color: #fff !important; 
+}
+
+.form-control {
+    /* background-color: var(--background-color) !important; */
+    color: var(--text-color) !important;
+}
+
+/* .card {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid #666; 
+} */
+
+.modal-content {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid #666; /* Darker border */
+}
+
+html,
+body {
+    height: 100%;
+    max-width: 100%;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    font-size: 100%;
+    background-color: var(--background-color); /* Dark background */
+    color: var(--text-color); /* Light text */
+}
+
+#footer {
+    height: 30px;
+    position: relative;
+}
+
+#formupload {
+    height: 400px;
+    width: 100%;
+    font-family: monospace;
+}
+
+#files p {
+    word-break: break-all;
+    color: var(--text-color);
+}
+
+#files p .break-word {
+    word-break: break-word;
+    font-weight: normal !important;
+    color: var(--text-color);
+}
+
+#filelist {
+    height: auto;
+    width: 100%;
+    font-family: monospace;
+    color: var(--text-color);
+}
+
+.fileupload-abort {
+    float: right;
+    margin-left: 10px;
+    color: var(--text-color);
+}
+
+.dropzone {
+    width: 100%;
+    padding: 3em;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+#wrapper {
+    min-height: 100%;
+    margin: 0 auto -30px;
+    padding: 0 0 60px;
+    background-color: var(--background-color);
+}
+
+#wrapper > .container {
+    padding: 0 15px 60px;
+    background-color: var(--background-color);
+}
+
+.jumbotron .fa {
+    font-size: 80px;
+    color: var(--text-color);
+}
+
+.jumbotron {
+    font-size: 100%;
+    text-align: center;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.alert {
+    padding: 5px 10px;
+    background-color: #555; /* Darker background */
+    color: var(--text-color);
+}
+
+.alert-processing {
+    color: var(--text-color);
+    background-color: #444; /* Darker background */
+    border-color: #666; /* Darker border */
+}
+
+.alert-processing hr {
+    border-top-color: #777; /* Darker border */
+}
+
+.alert-processing .alert-link {
+    color: #bbb; /* Lighter text */
+}
+
+/* if data is too wide, show scrollbars */
+.data {
+   width: 100%;
+   overflow: auto;
+}
+
+/* override pygments table highlighting style */
+table.highlighttable {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.linenodiv pre, .highlight pre {
+    margin-bottom: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 9.5px;
+}
+
+.highlight p {
+    margin: 0;
+    padding: 0 0.7em;
+}
+
+.linenodiv pre {
+    border-right-style: none;
+}
+
+.linenodiv pre a:hover {
+    text-decoration: none;
+}
+
+.highlight pre {
+    padding-left: 0;
+    padding-right: 0;
+    border-left: 1px solid #666; 
+}
+
+/* Set minimal width and let the contents push the block width */
+.linenos {
+    width: 1px;
+}
+
+/* autocomplete for modify dialog */
+.ui-autocomplete {
+    z-index: 1065;
+    color: var(--text-color);
+}

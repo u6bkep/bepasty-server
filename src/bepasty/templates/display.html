@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="card">
-    <div class="card-header">
+    <div class="card-header {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}">
         <h1>
             {{ item.meta['filename'] }}
         </h1>
@@ -73,7 +73,7 @@
             {% endif %}
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}">
         <p>
         Type: {{ item.meta['type'] }},
         Size: {{ item.meta['size'] }} bytes,
@@ -97,7 +97,11 @@
 
 {% block extra_link %}
 <!-- Pygments styles -->
+{% if config.DARKMODE %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='app/css/github-dark.css' ) }}" type="text/css">
+{% else %}
 <link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='pygments', filename='css/colorful.css') }}" type="text/css">
+{% endif %}
 <!-- asciinema styles -->
 <link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='asciinema_player', filename='asciinema-player.css') }}" type="text/css">
 {% endblock %}
