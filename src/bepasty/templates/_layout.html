@@ -67,7 +67,7 @@
                             <form class="form-inline" role="form" method="post" action="{{ url_for('bepasty.login') }}">
                                 <div class="form-row">
                                     <div class="col">
-                                        <input class="form-control" type="password" name="token" placeholder="Password" autofocus>
+                                        <input class="form-control {% if config.DARKMODE %} bg-dark {% else %} bg-light {% endif %}" type="password" name="token" placeholder="Password" autofocus>
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-outline-secondary">Login</button>
