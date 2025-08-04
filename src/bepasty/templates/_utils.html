@@ -9,15 +9,15 @@
                 <br />
                 Size [B]
             </th>
-            <th>
+            <th class="text-center">
                 Thumbnail
             </th>
-            <th>
+            <th class="text-center">
                 Upload [UTC]
                 <br />
                 Download [UTC]
             </th>
-            <th>
+            <th class="text-center">
                 Actions
             </th>
         </tr>
@@ -36,7 +36,7 @@
                 </td>
                 <td>
                     <a href="{{ url_for('bepasty.display', name=file['id']) }}">
-                        <img src="{{ url_for('bepasty.thumbnail', name=file['id']) }}">
+                        <img src="{{ url_for('bepasty.thumbnail', name=file['id']) }}" style="max-width: 192px; max-height: 108px; object-fit: contain; display: block; margin: 0 auto;">
                     </a>
                 </td>
                 <td>
