@@ -1,3 +1,41 @@
+/* CSS Custom Properties for theming
+-------------------------------------------------- */
+:root {
+    --bg-color: #fff;
+    --text-color: #212529;
+    --navbar-bg: #f8f9fa;
+    --navbar-text: #495057;
+    --border-color: #dee2e6;
+    --alert-processing-bg: #f0f0f0;
+    --alert-processing-border: #eeeeee;
+    --alert-processing-text: #464646;
+    --line-highlight-bg: #ffc;
+    --highlight-table-bg: #f5f5f5;
+    --highlight-table-border: #ccc;
+    --form-control-bg: #fff;
+    --form-control-border: #ced4da;
+    --btn-outline-border: #6c757d;
+    --btn-outline-text: #6c757d;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --navbar-bg: #1f1f1f;
+    --navbar-text: #e0e0e0;
+    --border-color: #333;
+    --alert-processing-bg: #2d2d2d;
+    --alert-processing-border: #404040;
+    --alert-processing-text: #b0b0b0;
+    --line-highlight-bg: #4a4a00;
+    --highlight-table-bg: #2a2a2a;
+    --highlight-table-border: #555;
+    --form-control-bg: #2d2d2d;
+    --form-control-border: #495057;
+    --btn-outline-border: #adb5bd;
+    --btn-outline-text: #adb5bd;
+}
+
 /* base styles
 -------------------------------------------------- */
 
@@ -6,9 +44,10 @@ body {
     height: 100%;
     max-width: 100%;
     margin: 0;
-    -webkit-font-smoothing: antialiased;
     font-size: 100%;
-    background-color: #fff;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #footer {
@@ -70,13 +109,13 @@ body {
 }
 
 .alert-processing {
-    color: #464646;
-    background-color: #f0f0f0;
-    border-color: #eeeeee;
+    color: var(--alert-processing-text);
+    background-color: var(--alert-processing-bg);
+    border-color: var(--alert-processing-border);
 }
 
 .alert-processing hr {
-    border-top-color: #e6e6e6;
+    border-top-color: var(--alert-processing-border);
 }
 
 .alert-processing .alert-link {
@@ -90,20 +129,18 @@ body {
 }
 
 .line-highlight {
-    background-color: #ffc;
+    background-color: var(--line-highlight-bg);
 }
 
 /* override pygments table highlighting style */
 table.highlighttable {
     width: 100%;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
+    border: 1px solid var(--highlight-table-border);
+    background-color: var(--highlight-table-bg);
 }
 
 .linenodiv pre, .highlight pre {
     margin-bottom: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
     border-radius: 0;
     padding: 9.5px;
 }
@@ -124,7 +161,7 @@ table.highlighttable {
 .highlight pre {
     padding-left: 0;
     padding-right: 0;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid var(--highlight-table-border);
 }
 
 /* Set minimal width and let the contents push the block width */
@@ -132,7 +169,338 @@ table.highlighttable {
     width: 1px;
 }
 
+/* Dark mode specific styles */
+[data-theme="dark"] .navbar-light {
+    background-color: var(--navbar-bg) !important;
+}
+
+[data-theme="dark"] .navbar-light .navbar-brand,
+[data-theme="dark"] .navbar-light .navbar-nav .nav-link,
+[data-theme="dark"] .navbar-light .navbar-text {
+    color: var(--navbar-text) !important;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: var(--form-control-bg);
+    border-color: var(--form-control-border);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: var(--form-control-bg);
+    border-color: #80bdff;
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+    color: var(--btn-outline-text);
+    border-color: var(--btn-outline-border);
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: var(--btn-outline-border);
+    color: var(--bg-color);
+}
+
+[data-theme="dark"] .bg-light {
+    background-color: var(--navbar-bg) !important;
+}
+
+[data-theme="dark"] textarea::placeholder,
+[data-theme="dark"] input::placeholder {
+    color: #888;
+}
+
+/* Dark mode Bootstrap component overrides */
+[data-theme="dark"] .card {
+    background-color: #2d2d2d;
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .card-header {
+    background-color: #3d3d3d;
+    border-bottom-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .table {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .table thead th {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.075);
+}
+
+[data-theme="dark"] .jumbotron {
+    background-color: #2d2d2d;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .alert {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .alert-info {
+    background-color: #1b4653;
+    border-color: #1e5064;
+    color: #b3d4e0;
+}
+
+[data-theme="dark"] .alert-warning {
+    background-color: #664d03;
+    border-color: #7a5a03;
+    color: #ffeaa7;
+}
+
+[data-theme="dark"] .alert-danger {
+    background-color: #721c24;
+    border-color: #842029;
+    color: #f8d7da;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #2d2d2d;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background-color: #2d2d2d;
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-item:focus {
+    background-color: #3d3d3d;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .border-bottom {
+    border-bottom-color: var(--border-color) !important;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    margin-left: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+    color: var(--navbar-text);
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode specific component fixes */
+[data-theme="dark"] .btn-light {
+    background-color: #495057;
+    border-color: #495057;
+    color: #fff;
+}
+
+[data-theme="dark"] .btn-light:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    color: #fff;
+}
+
+[data-theme="dark"] .dropzone,
+[data-theme="dark"] .fileinput-button.dropzone {
+    background-color: var(--form-control-bg) !important;
+    border-color: var(--form-control-border) !important;
+    color: var(--text-color) !important;
+}
+
+/* QR Code container - ensure light background for readability */
+[data-theme="dark"] #qr {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 10px auto;
+}
+
+[data-theme="dark"] #qr svg {
+    background-color: #ffffff;
+}
+
+/* Additional fixes for form elements and buttons */
+[data-theme="dark"] .form-check-input {
+    background-color: var(--form-control-bg);
+    border-color: var(--form-control-border);
+}
+
+[data-theme="dark"] .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .form-select {
+    background-color: var(--form-control-bg);
+    border-color: var(--form-control-border);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .form-range {
+    background-color: transparent;
+}
+
+[data-theme="dark"] .form-range::-webkit-slider-track,
+[data-theme="dark"] .form-range::-moz-range-track {
+    background-color: #495057;
+}
+
+/* Progress bar styling */
+[data-theme="dark"] .progress {
+    background-color: #2d2d2d;
+}
+
+[data-theme="dark"] .btn-group .btn {
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+/* Ensure text in small elements is properly colored */
+[data-theme="dark"] .small,
+[data-theme="dark"] small {
+    color: var(--text-color);
+}
+
 /* autocomplete for modify dialog */
 .ui-autocomplete {
     z-index: 1065;
+}
+
+/* Hamburger menu (navbar-toggler) styling for both themes */
+.navbar-toggler {
+    border: 1px solid var(--navbar-text);
+    background-color: transparent;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Dark mode hamburger menu styling */
+[data-theme="dark"] .navbar-toggler {
+    border-color: var(--navbar-text);
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28224, 224, 224, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+[data-theme="dark"] .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+/* Dark mode syntax highlighting overrides */
+[data-theme="dark"] table.highlighttable,
+[data-theme="dark"] .highlight table,
+[data-theme="dark"] table.highlighttable td,
+[data-theme="dark"] .highlight table td,
+[data-theme="dark"] .linenodiv pre,
+[data-theme="dark"] .highlight pre,
+[data-theme="dark"] .highlight,
+[data-theme="dark"] .data pre,
+[data-theme="dark"] .data code {
+    background-color: var(--highlight-table-bg) !important;
+    color: var(--text-color) !important;
+}
+
+[data-theme="dark"] table.highlighttable,
+[data-theme="dark"] .highlight table,
+[data-theme="dark"] table.highlighttable td,
+[data-theme="dark"] .highlight table td,
+[data-theme="dark"] .linenodiv pre,
+[data-theme="dark"] .data pre {
+    border-color: var(--highlight-table-border) !important;
+}
+
+/* Line number links styling */
+[data-theme="dark"] .linenodiv pre a {
+    color: #888 !important;
+    text-decoration: none;
+}
+
+[data-theme="dark"] .linenodiv pre a:hover {
+    color: var(--text-color) !important;
+    text-decoration: none;
+}
+
+/* Special highlighting for selected lines */
+[data-theme="dark"] .highlight .hll {
+    background-color: var(--line-highlight-bg) !important;
+}
+
+/* Ensure monospace content has proper colors in dark mode */
+[data-theme="dark"] #formupload,
+[data-theme="dark"] #filelist {
+    background-color: var(--form-control-bg);
+    color: var(--text-color);
+    border-color: var(--form-control-border);
+}
+
+/* Dark mode link styling and file list visibility */
+[data-theme="dark"] a,
+[data-theme="dark"] #files a {
+    color: #66b3ff;
+}
+
+[data-theme="dark"] a:hover,
+[data-theme="dark"] #files a:hover {
+    color: #99ccff;
+}
+
+[data-theme="dark"] #files {
+    color: var(--text-color);
+}
+
+/* Footer and navbar improvements */
+[data-theme="dark"] #footer {
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .navbar {
+    border-bottom: 1px solid var(--border-color);
 }

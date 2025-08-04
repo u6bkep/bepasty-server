@@ -5,10 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <meta name="color-scheme" content="light dark">
         <!-- Favicon -->
         <link rel="icon" href="{{ url_for('static', filename='app/favicon.ico') }}" type="image/x-icon">
 
         <title>Bepasty</title>
+
+        <!-- Early theme detection script to prevent FOUC -->
+        <script>
+            (function() {
+                const storageKey = 'bepasty-theme';
+                const savedTheme = localStorage.getItem(storageKey);
+                const systemTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const theme = savedTheme || systemTheme;
+                document.documentElement.setAttribute('data-theme', theme);
+            })();
+        </script>
 
         <!-- Bootstrap styles -->
         <link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='bootstrap', filename='css/bootstrap.min.css') }}" type="text/css">
@@ -50,26 +62,29 @@
                                 </li>
                                 {% endif %}
                             </ul>
-                            {% if flaskg.logged_in %}
-                            <form class="form-inline" role="form" method="post" action="{{ url_for('bepasty.logout') }}">
-                                <div class="form-row">
-                                    <div class="col">
-                                        <input class="btn btn-outline-secondary" type="submit" value="Logout">
+                                <button id="theme-toggle" class="theme-toggle" type="button" title="Toggle theme">
+                                    <i class="fa fa-moon-o"></i>
+                                </button>
+                                {% if flaskg.logged_in %}
+                                <form class="form-inline" role="form" method="post" action="{{ url_for('bepasty.logout') }}">
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <input class="btn btn-outline-secondary" type="submit" value="Logout">
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                            {% else %}
-                            <form class="form-inline" role="form" method="post" action="{{ url_for('bepasty.login') }}">
-                                <div class="form-row">
-                                    <div class="col">
-                                        <input class="form-control" type="password" name="token" placeholder="Password" autofocus>
+                                </form>
+                                {% else %}
+                                    <form class="form-inline" role="form" method="post" action="{{ url_for('bepasty.login') }}">
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <input class="form-control" type="password" name="token" placeholder="Password" autofocus>
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-outline-secondary">Login</button>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <button type="submit" class="btn btn-outline-secondary">Login</button>
-                                    </div>
-                                </div>
-                            </form>
-                            {% endif %}
+                                </form>
+                                {% endif %}
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
                 </nav>
@@ -97,6 +112,8 @@
         <script src="{{ url_for('bepasty.xstatic', name='jquery_ui', filename='jquery-ui.min.js') }}" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="{{ url_for('bepasty.xstatic', name='bootstrap', filename='js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
+        <!-- Theme Manager -->
+        <script src="{{ url_for('static', filename='app/js/theme.js') }}" type="text/javascript"></script>
         {% block extra_script %}{% endblock %}
     </body>
 </html>

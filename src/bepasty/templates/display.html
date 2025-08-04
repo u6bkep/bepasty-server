@@ -96,8 +96,9 @@
 {% endblock content %}
 
 {% block extra_link %}
-<!-- Pygments styles -->
-<link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='pygments', filename='css/colorful.css') }}" type="text/css">
+<!-- Pygments styles - conditional based on theme -->
+<link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='pygments', filename='css/colorful.css') }}" type="text/css" id="pygments-light">
+<link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='pygments', filename='css/monokai.css') }}" type="text/css" id="pygments-dark" disabled>
 <!-- asciinema styles -->
 <link rel="stylesheet" href="{{ url_for('bepasty.xstatic', name='asciinema_player', filename='asciinema-player.css') }}" type="text/css">
 {% endblock %}
