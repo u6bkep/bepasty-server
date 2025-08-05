@@ -51,6 +51,7 @@ bepasty-object = "bepasty.cli.object:main"
 [project.optional-dependencies]
 magic = ["python-magic"]
 pillow = ["Pillow"]
+av = ["av"]
 
 [project.urls]
 Homepage = "https://github.com/bepasty/bepasty-server/"

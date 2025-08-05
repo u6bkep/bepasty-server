@@ -11,6 +11,14 @@ except ImportError:
 else:
     from PIL import Image
 
+try:
+    import av  # for video thumbnail generation
+except ImportError:
+    # av is optional, used for video thumbnail generation
+    av = None
+else:
+    from av import VideoFrame
+
 from flask import Response, current_app, render_template, stream_with_context
 from flask.views import MethodView
 from werkzeug.exceptions import NotFound, Forbidden
@@ -106,12 +114,22 @@ class ThumbnailView(InlineView):
     def err_incomplete(self, item, error):
         return b'', 409  # conflict
 
-    def _generate_thumbnail(self, item, sz, thumbnail_type):
+    def _generate_image_thumbnail(self, item, sz, thumbnail_type):
         """Generate thumbnail data for supported image types."""
         with BytesIO(item.data.read(sz, 0)) as img_bio, BytesIO() as thumbnail_bio:
             with Image.open(img_bio) as img:
                 img.thumbnail(self.thumbnail_size)
                 img.save(thumbnail_bio, thumbnail_type)
+            return thumbnail_bio.getvalue()
+    def _generate_video_thumbnail(self, item, sz):
+        """Generate thumbnail data for video types."""
+        with BytesIO(item.data.read(sz, 0)) as video_bio, BytesIO() as thumbnail_bio:
+            container = av.open(video_bio)
+            stream = container.streams.video[0]
+            frame = next(container.decode(stream))
+            frame = frame.to_image()
+            frame.thumbnail(self.thumbnail_size)
+            frame.save(thumbnail_bio, 'jpeg')
             return thumbnail_bio.getvalue()
 
     def response(self, item, name):
@@ -126,25 +144,30 @@ class ThumbnailView(InlineView):
             ret.headers['Content-Length'] = len(thumbnail_data)
             ret.headers['Content-Type'] = 'image/svg+xml'
             ret.headers['X-Content-Type-Options'] = 'nosniff'
+            ret.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+            ret.headers['ETag'] = f'"{name}-thumb"'
             return ret
 
         match ct:
             case 'image/jpeg':
                 thumbnail_type = 'jpeg'
-                thumbnail_data = self._generate_thumbnail(item, sz, thumbnail_type)
+                thumbnail_data = self._generate_image_thumbnail(item, sz, thumbnail_type)
             case 'image/png' | 'image/gif':
                 thumbnail_type = 'png'
-                thumbnail_data = self._generate_thumbnail(item, sz, thumbnail_type)
+                thumbnail_data = self._generate_image_thumbnail(item, sz, thumbnail_type)
             case 'image/webp':
                 thumbnail_type = 'webp'
-                thumbnail_data = self._generate_thumbnail(item, sz, thumbnail_type)
+                thumbnail_data = self._generate_image_thumbnail(item, sz, thumbnail_type)
             case 'image/bmp':
                 thumbnail_type = 'bmp'
-                thumbnail_data = self._generate_thumbnail(item, sz, thumbnail_type)
+                thumbnail_data = self._generate_image_thumbnail(item, sz, thumbnail_type)
             case 'image/svg+xml':
                 thumbnail_type = 'svg+xml'
                 # Return SVG directly without processing
                 thumbnail_data = item.data.read(sz, 0)
+            case 'video/mp4':
+                thumbnail_type = 'mp4'
+                thumbnail_data = self._generate_video_thumbnail(item, sz)
             case _:
                 print('Thumbnail generation not supported for type:', ct)
                 # return a placeholder thumbnail for unsupported item types
@@ -153,6 +176,8 @@ class ThumbnailView(InlineView):
                 ret.headers['Content-Length'] = len(thumbnail_data)
                 ret.headers['Content-Type'] = 'image/svg+xml'
                 ret.headers['X-Content-Type-Options'] = 'nosniff'  # yes, we really mean it
+                ret.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+                ret.headers['ETag'] = f'"{name}-thumb"'
                 return ret
 
         name, ext = os.path.splitext(fn)
