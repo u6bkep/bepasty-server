@@ -246,63 +246,39 @@ table.highlighttable {
     background-color: rgba(255, 255, 255, 0.075);
 }
 
-[data-theme="dark"] .jumbotron {
-    background-color: #2d2d2d;
-    color: var(--text-color);
+/* Enhanced table styling for dark mode */
+[data-theme="dark"] .table,
+[data-theme="dark"] .table td,
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table tr {
+    color: var(--text-color) !important;
 }
 
-[data-theme="dark"] .alert {
-    border-color: var(--border-color);
+[data-theme="dark"] .table-hover tbody tr:hover td,
+[data-theme="dark"] .table-hover tbody tr:hover th {
+    color: var(--text-color) !important;
+    background-color: rgba(255, 255, 255, 0.075);
 }
 
-[data-theme="dark"] .alert-info {
-    background-color: #1b4653;
-    border-color: #1e5064;
-    color: #b3d4e0;
+[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) td,
+[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) th {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color) !important;
 }
 
-[data-theme="dark"] .alert-warning {
-    background-color: #664d03;
-    border-color: #7a5a03;
-    color: #ffeaa7;
+/* Ensure file list table elements follow dark theme */
+[data-theme="dark"] #files table,
+[data-theme="dark"] #files table td,
+[data-theme="dark"] #files table th,
+[data-theme="dark"] #files table tr {
+    color: var(--text-color) !important;
 }
 
-[data-theme="dark"] .alert-danger {
-    background-color: #721c24;
-    border-color: #842029;
-    color: #f8d7da;
-}
-
-[data-theme="dark"] .modal-content {
-    background-color: #2d2d2d;
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .modal-header {
-    border-bottom-color: var(--border-color);
-}
-
-[data-theme="dark"] .modal-footer {
-    border-top-color: var(--border-color);
-}
-
-[data-theme="dark"] .dropdown-menu {
-    background-color: #2d2d2d;
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .dropdown-item {
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .dropdown-item:hover,
-[data-theme="dark"] .dropdown-item:focus {
-    background-color: #3d3d3d;
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .border-bottom {
-    border-bottom-color: var(--border-color) !important;
+[data-theme="dark"] #files table tbody tr:hover,
+[data-theme="dark"] #files table tbody tr:hover td,
+[data-theme="dark"] #files table tbody tr:hover th {
+    background-color: rgba(255, 255, 255, 0.075) !important;
+    color: var(--text-color) !important;
 }
 
 /* Theme toggle button */
@@ -480,6 +456,30 @@ table.highlighttable {
     border-color: var(--form-control-border);
 }
 
+/* Dark mode link styling and file list visibility */
+[data-theme="dark"] a,
+[data-theme="dark"] #files a {
+    color: #66b3ff;
+}
+
+[data-theme="dark"] a:hover,
+[data-theme="dark"] #files a:hover {
+    color: #99ccff;
+}
+
+[data-theme="dark"] #files {
+    color: var(--text-color);
+}
+
+/* Footer and navbar improvements */
+[data-theme="dark"] #footer {
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .navbar {
+    border-bottom: 1px solid var(--border-color);
+}
 /* Dark mode link styling and file list visibility */
 [data-theme="dark"] a,
 [data-theme="dark"] #files a {

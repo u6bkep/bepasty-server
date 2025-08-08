@@ -131,13 +131,33 @@ class ThumbnailView(InlineView):
             frame.thumbnail(self.thumbnail_size)
             frame.save(thumbnail_bio, 'jpeg')
             return thumbnail_bio.getvalue()
+    def _generate_txt_thumbnail(self, item, sz):
+        """Generate a thumbnail for text files."""
+        with BytesIO(item.data.read(min(sz, 1024), 0)) as txt_bio:
+            content = txt_bio.read().decode('utf-8', errors='replace')
+            # Take first few lines and limit characters
+            lines = content.split('\n')[:6]
+            preview_text = '\n'.join(line[:30] + ('...' if len(line) > 30 else '') for line in lines)
+            
+            # Escape XML special characters
+            preview_text = preview_text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            
+            return f"""\
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="108" height="108" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="106" height="106" fill="white" stroke-width="2" stroke="gray" />
+<foreignObject x="4" y="4" width="100" height="100">
+<div xmlns="http://www.w3.org/1999/xhtml" style="font-family: monospace; font-size: 8px; line-height: 1.2; overflow: hidden; white-space: pre-wrap; word-wrap: break-word;">
+{preview_text}
+</div>
+</foreignObject>
+</svg>""".strip().encode()
 
     def response(self, item, name):
         sz = item.meta[SIZE]
         fn = item.meta[FILENAME]
         ct = item.meta[TYPE]
         if not PIL:
-            print('Pillow is not installed, cannot generate thumbnails.')
             # return a placeholder thumbnail for unsupported item types
             thumbnail_data = self._generate_placeholder_thumbnail(ct)
             ret = Response(thumbnail_data)
@@ -168,8 +188,10 @@ class ThumbnailView(InlineView):
             case 'video/mp4':
                 thumbnail_type = 'mp4'
                 thumbnail_data = self._generate_video_thumbnail(item, sz)
+            case ct if ct.startswith('text/'):
+                thumbnail_type = 'svg+xml'
+                thumbnail_data = self._generate_txt_thumbnail(item, sz)
             case _:
-                print('Thumbnail generation not supported for type:', ct)
                 # return a placeholder thumbnail for unsupported item types
                 thumbnail_data = self._generate_placeholder_thumbnail(ct)
                 ret = Response(thumbnail_data)
