@@ -42,6 +42,7 @@ dependencies = [
     "xstatic-jquery-ui <= 1.13.0.1",
     "xstatic-jquery-file-upload <= 10.31.0.1",
     "xstatic-pygments <= 2.9.0.1",
+    "mistune >= 3.1.4",
 ]
 
 [project.scripts]

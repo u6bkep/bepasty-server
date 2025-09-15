@@ -8,6 +8,7 @@ from werkzeug.exceptions import NotFound, Forbidden
 from pygments import highlight
 from pygments.lexers import get_lexer_for_mimetype
 from pygments.util import ClassNotFound as NoPygmentsLexer
+from mistune import html as mistune_html
 
 from ..constants import COMPLETE, FILENAME, LOCKED, SIZE, TIMESTAMP_DOWNLOAD, TYPE
 from ..utils.date_funcs import delete_if_lifetime_over
@@ -126,6 +127,9 @@ class DisplayView(MethodView):
                     rendered_content = Markup('<asciinema-player src="%s" title="%s" theme="%s" autoplay>' %
                                               (src, item.meta[FILENAME],
                                                current_app.config.get('ASCIINEMA_THEME', 'asciinema')))
+                elif ct in ['text/markdown', 'text/x-markdown', ]:
+                    text = read_data(item).decode('utf-8')
+                    rendered_content = Markup(f'<div class="markdown">{mistune_html(text)}</div>')
                 elif use_pygments:
                     text = read_data(item)
                     # TODO we don't have the coding in metadata

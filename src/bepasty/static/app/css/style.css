@@ -64,6 +64,7 @@ body {
 #files p {
     word-break: break-all;
 }
+
 #files p .break-word {
     word-break: break-word;
     font-weight: normal !important;
@@ -91,7 +92,7 @@ body {
     padding: 0 0 60px;
 }
 
-#wrapper > .container {
+#wrapper>.container {
     padding: 0 15px 60px;
 }
 
@@ -124,8 +125,8 @@ body {
 
 /* if data is too wide, show scrollbars */
 .data {
-   width: 100%;
-   overflow: auto;
+    width: 100%;
+    overflow: auto;
 }
 
 .line-highlight {
@@ -139,7 +140,8 @@ table.highlighttable {
     background-color: var(--highlight-table-bg);
 }
 
-.linenodiv pre, .highlight pre {
+.linenodiv pre,
+.highlight pre {
     margin-bottom: 0;
     border-radius: 0;
     padding: 9.5px;
@@ -480,6 +482,7 @@ table.highlighttable {
 [data-theme="dark"] .navbar {
     border-bottom: 1px solid var(--border-color);
 }
+
 /* Dark mode link styling and file list visibility */
 [data-theme="dark"] a,
 [data-theme="dark"] #files a {
@@ -503,4 +506,42 @@ table.highlighttable {
 
 [data-theme="dark"] .navbar {
     border-bottom: 1px solid var(--border-color);
+}
+
+
+/* Markdown specific styling */
+.markdown {
+    --base-size-4: 0.25rem;
+    --base-size-8: 0.5rem;
+    --base-size-16: 1rem;
+    --base-size-24: 1.5rem;
+    --base-size-40: 2.5rem;
+    --base-text-weight-normal: 400;
+    --base-text-weight-medium: 500;
+    --base-text-weight-semibold: 600;
+    --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    --fgColor-accent: Highlight;
+}
+
+.markdown table th {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+.markdown table th,
+.markdown table td {
+  padding: 6px 13px;
+  border: 1px solid var(--border-color);
+}
+
+.markdown table td>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown table tr {
+  background-color: var(--border-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.markdown table tr:nth-child(2n) {
+  background-color: var(--bgColor-muted);
 }
